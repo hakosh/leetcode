@@ -15,22 +15,17 @@ func sortedSquares(nums []int) []int {
 	right := len(nums) - 1
 
 	for i := right; i >= 0; i-- {
-		if abs(nums[left]) > abs(nums[right]) {
-			squares[i] = nums[left] * nums[left]
+		a := nums[left] * nums[left]
+		b := nums[right] * nums[right]
+
+		if a > b {
+			squares[i] = a
 			left++
 		} else {
-			squares[i] = nums[right] * nums[right]
+			squares[i] = b
 			right--
 		}
 	}
 
 	return squares
-}
-
-func abs(x int) int {
-	if x < 0 {
-		return -x
-	} else {
-		return x
-	}
 }
