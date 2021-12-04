@@ -13,10 +13,10 @@ type Test struct {
 }
 
 var tests = []Test{
-	{in: []int{3, 2, 2, 3}, val: 2, out: []int{3, 3, 0, 0}, res: 2},
-	{in: []int{4, 2, 1, 4, 5, 4}, val: 4, out: []int{2, 1, 5, 0, 0, 0}, res: 3},
-	{in: []int{0, 2, 0, 0}, val: 0, out: []int{2, 0, 0, 0}, res: 3},
-	{in: []int{0, 1, 2, 2, 3, 0, 4, 2}, val: 2, out: []int{0, 1, 4, 0, 3}, res: 3},
+	{in: []int{3, 2, 2, 3}, val: 2, out: []int{3, 3, 2, 3}, res: 2},
+	{in: []int{4, 2, 1, 4, 5, 4}, val: 4, out: []int{2, 1, 5, 4, 5, 4}, res: 3},
+	{in: []int{0, 2, 0, 0}, val: 0, out: []int{2, 2, 0, 0}, res: 1},
+	{in: []int{0, 1, 2, 2, 3, 0, 4, 2}, val: 2, out: []int{0, 1, 3, 0, 4, 0, 4, 2}, res: 5},
 	{in: []int{}, val: 0, out: []int{}, res: 0},
 }
 
