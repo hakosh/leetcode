@@ -16,7 +16,7 @@ var cases = []Test{
 	{in: []int{1, 0, 3}, want: []int{0, 1, 3}},
 }
 
-func TestMoveZeroes(t *testing.T) {
+func TestSortArrayByParity(t *testing.T) {
 	for _, test := range cases {
 		in := make([]int, len(test.in))
 		copy(in, test.in)
