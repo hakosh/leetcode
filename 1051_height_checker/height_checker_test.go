@@ -15,7 +15,7 @@ var cases = []Test{
 	{in: []int{1, 2, 3, 4, 5}, want: 0},
 }
 
-func TestSortArrayByParity(t *testing.T) {
+func TestHeightChecker(t *testing.T) {
 	for _, test := range cases {
 		if res := heightChecker(test.in); res != test.want {
 			t.Errorf("For %v wanted %v, got %v\n", test.in, test.want, res)
