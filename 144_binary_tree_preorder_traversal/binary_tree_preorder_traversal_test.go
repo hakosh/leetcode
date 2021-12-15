@@ -30,7 +30,7 @@ var cases = []Test{
 	{in: nil, out: []int{}},
 }
 
-func TestThirdMax(t *testing.T) {
+func TestPreorderTraversal(t *testing.T) {
 	for _, test := range cases {
 		if res := preorderTraversal(test.in); !reflect.DeepEqual(test.out, res) {
 			t.Errorf("For %v wanted %v, got %v\n", test.in, test.out, res)
