@@ -2,6 +2,7 @@ package design_linked_list
 
 type Node struct {
 	val  int
+	prev *Node
 	next *Node
 }
 
@@ -30,6 +31,11 @@ func (this *MyLinkedList) Get(index int) int {
 
 func (this *MyLinkedList) AddAtHead(val int) {
 	node := &Node{val: val, next: this.head}
+
+	if this.head != nil {
+		this.head.prev = node
+	}
+
 	this.head = node
 	this.len++
 }
@@ -42,15 +48,11 @@ func (this *MyLinkedList) AddAtTail(val int) {
 
 	last := this.head
 
-	for {
-		if last.next != nil {
-			last = last.next
-		} else {
-			break
-		}
+	for last.next != nil {
+		last = last.next
 	}
 
-	node := &Node{val: val}
+	node := &Node{val: val, prev: last}
 	last.next = node
 	this.len++
 }
@@ -65,12 +67,20 @@ func (this *MyLinkedList) AddAtIndex(index int, val int) {
 		return
 	}
 
+	if index == this.len {
+		this.AddAtTail(val)
+		return
+	}
+
 	before := this.head
 	for i := 1; i < index; i++ {
 		before = before.next
 	}
+	after := before.next
 
-	node := &Node{val: val, next: before.next}
+	node := &Node{val: val, prev: before, next: after}
+
+	after.prev = node
 	before.next = node
 	this.len++
 }
@@ -86,11 +96,20 @@ func (this *MyLinkedList) DeleteAtIndex(index int) {
 		return
 	}
 
-	before := this.head
-	for i := 1; i < index; i++ {
-		before = before.next
+	node := this.head
+	for i := 0; i < index; i++ {
+		node = node.next
 	}
 
-	before.next = before.next.next
+	if node.next == nil {
+		node.prev.next = nil
+	} else {
+		node.prev.next = node.next
+		node.next.prev = node.prev
+	}
+
+	node.prev = nil
+	node.next = nil
+
 	this.len--
 }
