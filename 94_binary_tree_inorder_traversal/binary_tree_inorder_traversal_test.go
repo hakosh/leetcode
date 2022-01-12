@@ -32,7 +32,7 @@ var cases = []Test{
 
 func TestInorderTraversal(t *testing.T) {
 	for _, test := range cases {
-		if res := inorderTraversal(test.in); !reflect.DeepEqual(test.out, res) {
+		if res := inorderTraversalStack(test.in); !reflect.DeepEqual(test.out, res) {
 			t.Errorf("For %v wanted %v, got %v\n", test.in, test.out, res)
 		}
 	}
