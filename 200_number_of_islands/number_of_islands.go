@@ -1,10 +1,5 @@
 package number_of_islands
 
-type Point struct {
-	row int
-	col int
-}
-
 func numIslands(grid [][]byte) int {
 	m := len(grid)
 	n := len(grid[0])
@@ -17,24 +12,26 @@ func numIslands(grid [][]byte) int {
 			}
 
 			islands++
-			queue := []Point{{i, j}}
+			queue := [][2]int{{i, j}}
 
 			for len(queue) > 0 {
-				var tmp []Point
+				var tmp [][2]int
 
 				for _, point := range queue {
-					neighbors := []Point{
-						{max(0, point.row-1), point.col},
-						{min(m-1, point.row+1), point.col},
-						{point.row, max(0, point.col-1)},
-						{point.row, min(n-1, point.col+1)},
+					neighbors := [][2]int{
+						{point[0] - 1, point[1]},
+						{point[0] + 1, point[1]},
+						{point[0], point[1] - 1},
+						{point[0], point[1] + 1},
 					}
 
 					for _, point := range neighbors {
-						if grid[point.row][point.col] == '1' {
-							grid[point.row][point.col] = '0'
-							tmp = append(tmp, point)
+						if point[0] < 0 || point[0] == m || point[1] < 0 || point[1] == n || grid[point[0]][point[1]] == '0' {
+							continue
 						}
+
+						grid[point[0]][point[1]] = '0'
+						tmp = append(tmp, point)
 					}
 				}
 
@@ -46,18 +43,33 @@ func numIslands(grid [][]byte) int {
 	return islands
 }
 
-func min(a, b int) int {
-	if a > b {
-		return b
-	} else {
-		return a
+func numIslandsDFS(grid [][]byte) int {
+	islands := 0
+
+	m := len(grid)
+	n := len(grid[0])
+
+	for i, row := range grid {
+		for j, col := range row {
+			if col == '1' {
+				islands++
+				mark(&grid, i, j, m, n)
+			}
+		}
 	}
+
+	return islands
 }
 
-func max(a, b int) int {
-	if a < b {
-		return b
-	} else {
-		return a
+func mark(grid *[][]byte, i, j, m, n int) {
+	if i < 0 || j < 0 || i >= m || j >= n || (*grid)[i][j] == '0' {
+		return
 	}
+
+	(*grid)[i][j] = '0'
+
+	mark(grid, i-1, j, m, n)
+	mark(grid, i+1, j, m, n)
+	mark(grid, i, j-1, m, n)
+	mark(grid, i, j+1, m, n)
 }
