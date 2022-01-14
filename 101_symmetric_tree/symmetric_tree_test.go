@@ -80,3 +80,9 @@ func TestIsSymmetric(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkIsSymmetric(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		isSymmetric(tree2)
+	}
+}
