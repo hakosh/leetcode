@@ -5,7 +5,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func reverseList(head *ListNode) *ListNode {
+func reverseListIterative(head *ListNode) *ListNode {
 	if head == nil {
 		return head
 	}
@@ -22,4 +22,16 @@ func reverseList(head *ListNode) *ListNode {
 	}
 
 	return last
+}
+
+func reverseList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	tail := reverseList(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+
+	return tail
 }

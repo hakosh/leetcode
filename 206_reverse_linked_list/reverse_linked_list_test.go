@@ -16,7 +16,7 @@ var list1 = &ListNode{
 		Val: 2,
 		Next: &ListNode{
 			Val:  3,
-			Next: nil,
+			Next: &ListNode{Val: 4},
 		},
 	},
 }
@@ -31,7 +31,7 @@ var list3 = &ListNode{
 }
 
 var tests = []Test{
-	{in: list1, out: []int{3, 2, 1}},
+	{in: list1, out: []int{4, 3, 2, 1}},
 	{in: list2, out: []int{5}},
 	{in: list3, out: []int{9, 8}},
 	{in: nil, out: []int{}},
