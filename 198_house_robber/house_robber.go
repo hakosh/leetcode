@@ -3,6 +3,22 @@ package house_robber
 var mem map[int]int
 
 func rob(nums []int) int {
+	if len(nums) == 1 {
+		return nums[0]
+	}
+
+	dp := make([]int, len(nums)+1)
+	dp[len(nums)-1] = nums[len(nums)-1]
+	dp[len(nums)-2] = nums[len(nums)-2]
+
+	for i := len(nums) - 2; i >= 0; i-- {
+		dp[i] = max(nums[i]+dp[i+2], dp[i+1])
+	}
+
+	return dp[0]
+}
+
+func robRec(nums []int) int {
 	mem = make(map[int]int, len(nums))
 	return dp(nums)
 }
