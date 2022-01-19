@@ -4,29 +4,27 @@ var mem map[int]int
 
 func rob(nums []int) int {
 	mem = make(map[int]int, len(nums))
-	return robInner(nums)
+	return dp(nums)
 }
 
-func robInner(nums []int) int {
-	i := len(nums)
-
-	if i == 1 {
+func dp(nums []int) int {
+	switch len(nums) {
+	case 0:
+		return 0
+	case 1:
 		return nums[0]
-	}
-
-	if i == 2 {
+	case 2:
 		return max(nums[0], nums[1])
 	}
 
-	if v, ok := mem[i]; ok {
+	li := len(nums) - 1
+
+	if v, ok := mem[li]; ok {
 		return v
 	} else {
-		mem[i] = max(
-			rob(nums[:i-1]),
-			rob(nums[:i-2])+nums[i-1],
-		)
-
-		return mem[i]
+		r := max(nums[li]+dp(nums[:li-1]), dp(nums[:li]))
+		mem[li] = r
+		return r
 	}
 }
 
