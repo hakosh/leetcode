@@ -5,13 +5,19 @@ import "fmt"
 var m map[int]int
 
 func minCostClimbingStairs(cost []int) int {
-	downTwo, downOne := 0, 0
+	cost = append(cost, 0)
 
-	for i := 2; i < len(cost)+1; i++ {
-		downOne, downTwo = min(downTwo+cost[i-2], downOne+cost[i-1]), downOne
+	ln := len(cost)
+	dp := make([]int, ln+1)
+
+	dp[0] = cost[0]
+	dp[1] = cost[1]
+
+	for i := 2; i < len(cost); i++ {
+		dp[i] = min(dp[i-1], dp[i-2]) + cost[i]
 	}
 
-	return downOne
+	return dp[ln-1]
 }
 
 func minCostClimbingStairsR(cost []int) int {
