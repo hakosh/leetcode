@@ -1,16 +1,14 @@
 package best_time_to_buy_and_sell_stock
 
-import "math"
-
 func maxProfit(prices []int) int {
-	best := math.MaxInt32
 	max := 0
+	best := prices[0]
 
-	for _, buy := range prices {
-		if buy < best {
-			best = buy
-		} else if buy-best > max {
-			max = buy - best
+	for _, price := range prices {
+		if price < best {
+			best = price
+		} else if price-best > max {
+			max = price - best
 		}
 	}
 
