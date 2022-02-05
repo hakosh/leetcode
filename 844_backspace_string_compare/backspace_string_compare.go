@@ -3,7 +3,7 @@ package backspace_string_compare
 func backspaceCompare(s string, t string) bool {
 	p1, p2 := len(s)-1, len(t)-1
 
-	for {
+	for p1 >= 0 || p2 >= 0 {
 		if p1 >= 0 && s[p1] == '#' {
 			p1 = move(s, p1)
 			continue
@@ -14,15 +14,15 @@ func backspaceCompare(s string, t string) bool {
 			continue
 		}
 
-		if p1 < 0 && p2 < 0 {
-			return true
-		} else if (p1 < 0 && p2 >= 0) || (p1 >= 0 && p2 < 0) || s[p1] != t[p2] {
+		if (p1 < 0 && p2 >= 0) || (p1 >= 0 && p2 < 0) || s[p1] != t[p2] {
 			return false
-		} else {
-			p1--
-			p2--
 		}
+
+		p1--
+		p2--
 	}
+
+	return true
 }
 
 func move(str string, p int) int {
