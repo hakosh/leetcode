@@ -9,4 +9,12 @@ where (
               else 0
               end
           ) > 1
-order by seat_id
+order by seat_id;
+
+select distinct a.seat_id
+from Cinema a
+         join Cinema b
+              on abs(a.seat_id - b.seat_id) = 1
+where a.free
+  and b.free
+order by a.seat_id;
