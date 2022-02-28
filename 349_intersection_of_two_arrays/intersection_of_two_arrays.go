@@ -5,7 +5,39 @@ import (
 	"sort"
 )
 
-func intersection(nums1 []int, nums2 []int) []int {
+func intersection(nums1, nums2 []int) []int {
+	set := make(map[int]bool)
+
+	short, long := nums1, nums2
+	if len(nums2) < len(nums1) {
+		short, long = long, short
+	}
+
+	sort.Ints(short)
+
+	for _, num := range long {
+		if set[num] {
+			continue
+		}
+
+		pos := sort.Search(len(short), func(i int) bool {
+			return short[i] >= num
+		})
+
+		if pos < len(short) && short[pos] == num {
+			set[num] = true
+		}
+	}
+
+	intr := make([]int, 0, len(set))
+	for k := range set {
+		intr = append(intr, k)
+	}
+
+	return intr
+}
+
+func intersection3(nums1 []int, nums2 []int) []int {
 	intr := make([]int, 0, 3)
 
 	sort.Ints(nums1)
